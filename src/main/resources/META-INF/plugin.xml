@@ -1,0 +1,31 @@
+<idea-plugin>
+    <id>com.josiassena.GitHubGists</id>
+    <name>GitHub Gists</name>
+    <version>1.0</version>
+    <vendor email="josias@josiassena.com" url="http://www.josiassena.com">Josias Sena</vendor>
+
+    <description>This is a GitHub plugin to manage and create GitHub Gists</description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.github</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Gists" anchor="right" factoryClass="gists_tool_window.view.GistsToolWindowFactory"
+                    conditionClass="gists_tool_window.view.GistsToolWindowCondition"/>
+    </extensions>
+
+    <actions>
+        <action id="CreateGistAction"
+                class="create_gist_action.view.CreateGistAction"
+                text="Create Gist..."
+                icon="/icons/github.png"
+                description="GitHub action to create a gist">
+
+            <keyboard-shortcut first-keystroke="control shift J" keymap="$default"/>
+
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
