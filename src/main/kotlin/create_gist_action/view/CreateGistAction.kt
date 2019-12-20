@@ -46,43 +46,45 @@ class CreateGistAction : AnAction() {
 
     internal fun showCreateGistDialog(
         anActionEvent: AnActionEvent,
+        fileName: String?,
+        gist: String,
         isPrivate: Boolean,
         isOpenInBrowser: Boolean,
         isCopyUrl: Boolean
     ) {
-        with(
-            CreateGistDialog(
-                presenter.getCurrentFileName(anActionEvent),
-                presenter.getGist(anActionEvent),
-                isPrivate,
-                isOpenInBrowser,
-                isCopyUrl,
-                object : OnCreateGistClickListener {
+        val gistDialog = CreateGistDialog(
+            fileName,
+            gist,
+            isPrivate,
+            isOpenInBrowser,
+            isCopyUrl,
+            object : OnCreateGistClickListener {
 
-                    override fun onOkClicked(createGistDialog: CreateGistDialog) {
+                override fun onOkClicked(createGistDialog: CreateGistDialog) {
 
-                        with(createGistDialog) {
-                            presenter.createGist(
-                                anActionEvent,
-                                CreateGistParams(
-                                    filenameTextField.text,
-                                    descriptionTextField.text,
-                                    gistTextArea.text,
-                                    privateGistCheckBox.isSelected,
-                                    openInBrowserCheckBox.isSelected,
-                                    copyURLCheckBox.isSelected
-                                )
+                    with(createGistDialog) {
+                        presenter.createGist(
+                            anActionEvent,
+                            CreateGistParams(
+                                filenameTextField.text,
+                                descriptionTextField.text,
+                                gistTextArea.text,
+                                privateGistCheckBox.isSelected,
+                                openInBrowserCheckBox.isSelected,
+                                copyURLCheckBox.isSelected
                             )
+                        )
 
-                            dispose()
-                        }
+                        dispose()
                     }
+                }
 
-                    override fun onCancelClicked(createGistDialog: CreateGistDialog) {
-                        createGistDialog.dispose()
-                    }
-                })
-        ) {
+                override fun onCancelClicked(createGistDialog: CreateGistDialog) {
+                    createGistDialog.dispose()
+                }
+            })
+
+        with(gistDialog) {
             pack()
             setLocationRelativeTo(anActionEvent.project?.getParentWindow())
             isVisible = true

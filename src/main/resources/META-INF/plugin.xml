@@ -21,11 +21,12 @@
                 class="create_gist_action.view.CreateGistAction"
                 text="Create Gist..."
                 icon="/icons/github.png"
-                description="GitHub action to create a gist">
+                description="Create GitHub Gist">
 
             <keyboard-shortcut first-keystroke="control shift J" keymap="$default"/>
 
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>

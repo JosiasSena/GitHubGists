@@ -4,15 +4,20 @@ import api.GistApi
 import api.OnGistCreatedListener
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import create_gist_action.view.CreateGistAction
 import org.jetbrains.plugins.github.api.data.request.GithubGistRequest.FileContent
 import org.jetbrains.plugins.github.authentication.GithubAuthenticationManager
 import org.jetbrains.plugins.github.util.GithubNotifications
 import org.jetbrains.plugins.github.util.GithubSettings
 import java.awt.datatransfer.StringSelection
+import java.io.IOException
 
 /**
  * @author Josias Sena
@@ -81,10 +86,39 @@ class CreateGistPresenter(
         if (isLoggedInToGitHub()) {
             println("Logged in to GitHub!")
 
-            with(githubSettings) {
-                view.showCreateGistDialog(anActionEvent, isPrivateGist, isOpenInBrowserGist, isCopyURLGist)
+            val file = anActionEvent.dataContext.getData(CommonDataKeys.VIRTUAL_FILE)
+            val files = anActionEvent.dataContext.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY)
+
+            if (file == null && files == null) {
+                return
             }
 
+            file?.let {
+                if (file.isDirectory || files?.size != 1) {
+                    // Let the default github plugin do its thing
+                    anActionEvent.actionManager.getAction("Github.Create.Gist").actionPerformed(anActionEvent)
+                } else {
+                    if (file.fileType.isBinary) {
+                        anActionEvent.project?.let {
+                            GithubNotifications.showWarning(it, "Can't create Gist", "Can't upload binary file: $file")
+                        }
+                    }
+
+                    // We handle it
+                    with(githubSettings) {
+                        val gist = getGist(anActionEvent, file)
+
+                        view.showCreateGistDialog(
+                            anActionEvent,
+                            file.name,
+                            gist,
+                            isPrivateGist,
+                            isOpenInBrowserGist,
+                            isCopyURLGist
+                        )
+                    }
+                }
+            }
         } else {
             println("Not logged in to GitHub!")
 
@@ -100,16 +134,19 @@ class CreateGistPresenter(
 
     private fun isLoggedInToGitHub(): Boolean = githubAuthenticationManager.hasAccounts()
 
-    fun getGist(anActionEvent: AnActionEvent): String {
+    private fun getGist(anActionEvent: AnActionEvent, file: VirtualFile): String {
         val editor = anActionEvent.dataContext.getData(PlatformDataKeys.EDITOR)
 
-        return (editor?.selectionModel?.selectedText ?: editor?.document?.text).orEmpty()
-    }
+        val content = ReadAction.compute<String, RuntimeException> {
+            try {
+                return@compute FileDocumentManager.getInstance().getDocument(file)?.text
+                    ?: String(file.contentsToByteArray(), file.charset)
+            } catch (ioException: IOException) {
+                ioException.printStackTrace()
+                return@compute null
+            }
+        }
 
-    fun getCurrentFileName(anActionEvent: AnActionEvent): String? {
-        val fileEditor = anActionEvent.dataContext.getData(PlatformDataKeys.FILE_EDITOR)
-        val virtualFile = fileEditor?.file
-
-        return virtualFile?.name
+        return (editor?.selectionModel?.selectedText ?: content).orEmpty()
     }
 }
