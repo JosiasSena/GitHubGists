@@ -22,6 +22,8 @@ import javax.imageio.ImageIO
 /**
  * @author Josias Sena
  * @since v1.0
+ *
+ * @see <a href="https://developer.github.com/v3/gists/">Github Gists Api</a>
  */
 class GistApi(private val apiRequestExecutorManager: GithubApiRequestExecutorManager = GithubApiRequestExecutorManager.getInstance()) {
 
