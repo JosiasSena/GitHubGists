@@ -6,7 +6,7 @@ A simple GitHub plugin that allows you to create gists.
  - Create Gist with keyboard shortcut (Command + Shift + J)
  - Edit Gist before uploading
  - Create Gist from current selection
- - View Gist preview right from within your IDE and click to open the full gist on browser.
+ - All of your gists are displayed in a Gist pane right in the IDE
 
 ![](screenshots/demo.gif)
 
