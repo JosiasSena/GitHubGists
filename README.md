@@ -1,6 +1,6 @@
 # Github Gists
 
-A simple GitHub plugin that allows you to create gists.
+A simple GitHub plugin that allows you to create gists, and also view your gists from within your IDE.
 
 #### Features
  - Create Gist with keyboard shortcut (Command + Shift + J)
