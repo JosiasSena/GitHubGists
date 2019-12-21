@@ -24,9 +24,8 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2019.3'
-    plugins = [
-            "github"
-    ]
+    plugins = ["github"]
+    pluginName 'GitHub Gists'
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -41,4 +40,8 @@ patchPluginXml {
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'
+}
+
+publishPlugin {
+    token intellijPublishToken
 }
