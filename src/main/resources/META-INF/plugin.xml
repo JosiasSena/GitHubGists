@@ -4,11 +4,18 @@
     <version>1.0</version>
     <vendor email="josias@josiassena.com" url="http://www.josiassena.com">Josias Sena</vendor>
 
-    <description>This is a GitHub plugin to manage and create GitHub Gists</description>
+    <description>A simple GitHub plugin that allows you to create gists from a file or from the current cursor
+        selection.
+        The plugin contains a keyboard shortcut for easy Gist creation, allows modifying gist file name,
+        description and also modifying the gist before upload. The plugin contains a bonus feature allowing you to
+        see all of your gists from within your IDE.
+    </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
+    <depends>com.intellij.modules.all</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
     <depends>org.jetbrains.plugins.github</depends>
 
     <extensions defaultExtensionNs="com.intellij">
