@@ -34,7 +34,7 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 patchPluginXml {
-    changeNotes """Updated plugin description and the `depends` options."""
+    changeNotes """Updated plugin `depends` options to allow the plugin to be available in a larger rande of IntelliJ IDE's"""
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'
