@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.josiassena'
-version '1.3-SNAPSHOT'
+version '1.5-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -34,7 +34,7 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 patchPluginXml {
-    changeNotes """Updated plugin `depends` options to allow the plugin to be available in a larger rande of IntelliJ IDE's"""
+    changeNotes """Added idea-version explicit version support"""
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'
