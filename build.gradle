@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.josiassena'
-version '1.5-SNAPSHOT'
+version '1.8-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -27,14 +27,18 @@ intellij {
     plugins = ["github"]
     pluginName 'GitHub Gists'
 }
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
 patchPluginXml {
-    changeNotes """Added idea-version explicit version support"""
+    changeNotes """Fixed support versions for the plugin allowing it to be used since build 191 up until the latest intellij version."""
+    sinceBuild '191.*'
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'

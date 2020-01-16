@@ -1,7 +1,6 @@
 <idea-plugin>
     <id>com.josiassena.GitHubGists</id>
     <name>GitHub Gists</name>
-    <version>1.5-SNAPSHOT</version>
     <vendor email="josias@josiassena.com" url="http://www.josiassena.com">Josias Sena</vendor>
 
     <description>A simple GitHub plugin that allows you to create gists from a file or from the current cursor
@@ -21,8 +20,6 @@
         <toolWindow id="Gists" anchor="right" factoryClass="gists_tool_window.view.GistsToolWindowFactory"
                     conditionClass="gists_tool_window.view.GistsToolWindowCondition"/>
     </extensions>
-
-    <idea-version since-build="191" until-build="900.*"/>
 
     <actions>
         <action id="CreateGistAction"
