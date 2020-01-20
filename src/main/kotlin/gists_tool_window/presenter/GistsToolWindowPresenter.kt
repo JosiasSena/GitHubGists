@@ -59,7 +59,10 @@ class GistsToolWindowPresenter @JvmOverloads constructor(
             gistApi.fetchProfileInfo(project, githubAccount, object : OnGotUserProfileDataListener {
 
                 override fun onSuccess(image: Image?, user: GithubAuthenticatedUser) {
-                    view.displayUserData(image?.let { getScaledImage(image, 100, 100) }, user)
+                    view.displayUserData(
+                        image?.let { image.getScaledInstance(100, 100, Image.SCALE_AREA_AVERAGING) },
+                        user
+                    )
                 }
 
                 override fun onError(error: Throwable) {
