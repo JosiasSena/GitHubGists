@@ -4,7 +4,6 @@ import GistsToolWindow
 import api.GistApi
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.project.Project
-import com.intellij.util.ui.ImageUtil
 import org.jetbrains.plugins.github.api.GithubApiRequest
 import org.jetbrains.plugins.github.api.GithubApiRequests
 import org.jetbrains.plugins.github.api.GithubServerPath
@@ -13,8 +12,6 @@ import org.jetbrains.plugins.github.api.data.GithubGist
 import org.jetbrains.plugins.github.authentication.GithubAuthenticationManager
 import org.jetbrains.plugins.github.util.GithubNotifications
 import java.awt.Image
-import java.awt.RenderingHints
-import java.awt.image.BufferedImage
 
 /**
  * @author Josias Sena
@@ -75,15 +72,6 @@ class GistsToolWindowPresenter @JvmOverloads constructor(
 
     fun onItemClicked(githubGist: GithubGist) {
         BrowserUtil.browse("https://gist.github.com/${githubGist.user?.login}/${githubGist.id}")
-    }
-
-    private fun getScaledImage(srcImg: Image, width: Int, height: Int): Image? {
-        val resizedImg = ImageUtil.createImage(width, height, BufferedImage.TYPE_INT_ARGB)
-        val graphics2D = resizedImg.createGraphics()
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
-        graphics2D.drawImage(srcImg, 0, 0, width, height, null)
-        graphics2D.dispose()
-        return resizedImg
     }
 
     fun goToUsersGitHubPage(user: GithubAuthenticatedUser) {
