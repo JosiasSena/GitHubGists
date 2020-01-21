@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.josiassena'
-version '1.9-SNAPSHOT'
+version '1.10-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -37,7 +37,7 @@ compileTestKotlin {
 }
 
 patchPluginXml {
-    changeNotes """Changed the way the profile image is scaled to allow support on older IDE versions"""
+    changeNotes """Removed code that could cause issues in easiler versions on Intellij"""
     sinceBuild '191.*'
 }
 runIde {
