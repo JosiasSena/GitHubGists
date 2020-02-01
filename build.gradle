@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.josiassena'
-version '1.11-SNAPSHOT'
+version '1.12-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -38,7 +38,7 @@ compileTestKotlin {
 
 patchPluginXml {
     changeNotes """Bump since build to 193"""
-    sinceBuild '193.*'
+    sinceBuild '193.0'
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'
