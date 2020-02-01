@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.josiassena'
-version '1.10-SNAPSHOT'
+version '1.11-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -37,8 +37,8 @@ compileTestKotlin {
 }
 
 patchPluginXml {
-    changeNotes """Removed code that could cause issues in easiler versions on Intellij"""
-    sinceBuild '191.*'
+    changeNotes """Bump since build to 193"""
+    sinceBuild '193.*'
 }
 runIde {
     jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED'
